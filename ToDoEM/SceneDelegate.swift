@@ -20,12 +20,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
              let window = UIWindow(windowScene: windowScene)
 
-             let rootVC = TaskListViewController()
+             let rootVC = TaskListBuilder.build()
              let nav = UINavigationController(rootViewController: rootVC)
 
              window.rootViewController = nav
              self.window = window
              window.makeKeyAndVisible()
+        window.overrideUserInterfaceStyle = .dark
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
