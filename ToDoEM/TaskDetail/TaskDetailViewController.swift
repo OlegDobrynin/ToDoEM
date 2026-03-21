@@ -2,6 +2,8 @@ import UIKit
 
 class TaskDetailViewController: UIViewController {
     
+    var presenter: TaskDetailPresenterProtocol!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()

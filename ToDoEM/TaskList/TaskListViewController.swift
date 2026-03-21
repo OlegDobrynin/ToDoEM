@@ -1,6 +1,9 @@
 import UIKit
 
 class TaskListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    var presenter: TaskListPresenterProtocol!
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mockTasks.count
     }
@@ -20,6 +23,11 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let task = mockTasks[indexPath.row]
+        presenter.didSelectTask(task)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -29,6 +37,14 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func setupUI() {
         view.backgroundColor = .emBlack
+        
+        navigationItem.backBarButtonItem = UIBarButtonItem(
+                   title: "Назад",
+                   style: .plain,
+                   target: nil,
+                   action: nil,
+               )
+        navigationItem.backBarButtonItem?.tintColor = .emYellow
         
         let label = UILabel()
         label.text = "Задачи"
@@ -47,7 +63,6 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         let tableView = UITableView()
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .emBlack
@@ -87,8 +102,7 @@ class TaskListViewController: UIViewController, UITableViewDelegate, UITableView
         NSLayoutConstraint.activate([
             label.heightAnchor.constraint(equalToConstant: 56),
             
-            searchBar.topAnchor.constraint(equalTo: textField.topAnchor),
-            searchBar.bottomAnchor.constraint(equalTo: textField.bottomAnchor),
+            searchBar.topAnchor.constraint(equalTo: label.bottomAnchor),
             
             textField.leadingAnchor.constraint(equalTo: searchBar.leadingAnchor),
             textField.trailingAnchor.constraint(equalTo: searchBar.trailingAnchor),
