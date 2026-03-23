@@ -34,6 +34,7 @@ class TaskCell: UITableViewCell {
         
         checkboxButton.setImage(UIImage(systemName: "circle"), for: .normal)
         checkboxButton.tintColor = UIColor(named: "EMYellow")
+        checkboxButton.addTarget(self, action: #selector(checkboxTapped), for: .touchUpInside)
         
         titleLabel.font = .systemFont(ofSize: 16, weight: .medium)
         titleLabel.textColor = .emWhite
@@ -83,6 +84,12 @@ class TaskCell: UITableViewCell {
     }
     
     
+    // MARK: - Actions
+
+    @objc private func checkboxTapped() {
+        onToggle?()
+    }
+
     // MARK: - Configure
     
     func configure(title: String,
