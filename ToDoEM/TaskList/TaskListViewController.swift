@@ -6,6 +6,7 @@ final class TaskListViewController: UIViewController {
 
     // MARK: - State
 
+    private var allTasks: [TaskModel] = []
     private var tasks: [TaskModel] = []
 
     // MARK: - UI
@@ -52,6 +53,7 @@ final class TaskListViewController: UIViewController {
         searchBar.backgroundColor = .clear
         searchBar.showsBookmarkButton = true
         searchBar.setImage(UIImage(systemName: "mic.fill"), for: .bookmark, state: .normal)
+        searchBar.delegate = self
         let textField = searchBar.searchTextField
         textField.translatesAutoresizingMaskIntoConstraints = false
 
@@ -130,7 +132,38 @@ final class TaskListViewController: UIViewController {
 
 extension TaskListViewController: TaskListViewProtocol {
     func showTasks(_ tasks: [TaskModel]) {
-        self.tasks = tasks
+        allTasks = tasks
+        applyFilter(searchBar.text)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension TaskListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        applyFilter(searchText)
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        applyFilter(nil)
+    }
+}
+
+// MARK: - Filter helper
+
+private extension TaskListViewController {
+    func applyFilter(_ query: String?) {
+        if let query, !query.isEmpty {
+            let q = query.lowercased()
+            tasks = allTasks.filter {
+                $0.title.lowercased().contains(q) ||
+                $0.description.lowercased().contains(q)
+            }
+        } else {
+            tasks = allTasks
+        }
         tableView.reloadData()
         updateCount()
     }
