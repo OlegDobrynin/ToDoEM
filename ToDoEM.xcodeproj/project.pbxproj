@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 73;
 	objects = {
 
 /* Begin PBXFileReference section */
@@ -11,24 +11,28 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		1CD8C5542F6C0864001C2687 /* Exceptions for "ToDoEM" folder in "ToDoEM" target */ = {
+		1C8603D42F7173CA002E055D /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
+				TasksEntity.xcdatamodeld,
 			);
 			target = 1CD8C5412F6C0862001C2687 /* ToDoEM */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		1CD8C5442F6C0862001C2687 /* ToDoEM */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				1CD8C5542F6C0864001C2687 /* Exceptions for "ToDoEM" folder in "ToDoEM" target */,
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		1C8603D52F7173CA002E055D /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 1CD8C53E2F6C0862001C2687 /* Sources */;
+			membershipExceptions = (
+				TasksEntity.xcdatamodeld,
 			);
-			path = ToDoEM;
-			sourceTree = "<group>";
 		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		1C8603BF2F7173CA002E055D /* ToDoEM */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1C8603D42F7173CA002E055D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 1C8603D52F7173CA002E055D /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ToDoEM; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +49,7 @@
 		1CD8C5392F6C0862001C2687 = {
 			isa = PBXGroup;
 			children = (
-				1CD8C5442F6C0862001C2687 /* ToDoEM */,
+				1C8603BF2F7173CA002E055D /* ToDoEM */,
 				1CD8C5432F6C0862001C2687 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -74,7 +78,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				1CD8C5442F6C0862001C2687 /* ToDoEM */,
+				1C8603BF2F7173CA002E055D /* ToDoEM */,
 			);
 			name = ToDoEM;
 			packageProductDependencies = (
@@ -107,7 +111,7 @@
 			);
 			mainGroup = 1CD8C5392F6C0862001C2687;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 77;
+			preferredProjectObjectVersion = 60;
 			productRefGroup = 1CD8C5432F6C0862001C2687 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -152,6 +156,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -183,6 +188,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
