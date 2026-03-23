@@ -1,17 +1,35 @@
-import UIKit
+import Foundation
 
-protocol TaskDetailPresenterProtocol {
-    func backButtonTapped()
+// MARK: - Protocols
+
+protocol TaskDetailPresenterInput: AnyObject {
+    func viewDidLoad()
+    func viewWillDisappear(title: String, description: String)
 }
 
-class TaskDetailPresenter: TaskDetailPresenterProtocol {
-     
-    var router: TaskDetailRouterProtocol?
-    weak var view: UIViewController?
-    var task: Task?
-    
-    func backButtonTapped() {
-        guard let view = view else { return }
-        router?.navigateToTaskList(from: view)
+protocol TaskDetailViewProtocol: AnyObject {
+    func showTask(_ task: TaskModel)
+}
+
+// MARK: - Presenter
+
+final class TaskDetailPresenter: TaskDetailPresenterInput {
+
+    weak var view: TaskDetailViewProtocol?
+    var interactor: TaskDetailInteractorInput!
+    var router: TaskDetailRouterProtocol!
+    var task: TaskModel!
+
+    // MARK: - TaskDetailPresenterInput
+
+    func viewDidLoad() {
+        view?.showTask(task)
+    }
+
+    func viewWillDisappear(title: String, description: String) {
+        var updated = task!
+        updated.title = title
+        updated.description = description
+        interactor.saveTask(updated)
     }
 }
