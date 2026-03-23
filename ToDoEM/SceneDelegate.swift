@@ -18,15 +18,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-             let window = UIWindow(windowScene: windowScene)
+        // Собираем зависимости один раз здесь
+        let stack = CoreDataStack.shared
+        let storage = StorageService(context: stack.context)
+        let network = NetworkService()
 
-             let rootVC = TaskListBuilder.build()
-             let nav = UINavigationController(rootViewController: rootVC)
+        let rootVC = TaskListBuilder.build(storage: storage, network: network)
+        let nav = UINavigationController(rootViewController: rootVC)
+        nav.navigationBar.tintColor = .emYellow
+        nav.navigationBar.barStyle = .black
 
-             window.rootViewController = nav
-             self.window = window
-             window.makeKeyAndVisible()
+        let window = UIWindow(windowScene: windowScene)
+        window.rootViewController = nav
         window.overrideUserInterfaceStyle = .dark
+        self.window = window
+        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
