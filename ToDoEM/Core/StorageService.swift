@@ -29,7 +29,9 @@ final class StorageService: StorageServiceProtocol {
         ]
         
         do {
-            return try context.fetch(request).map { $0.toModel() }
+            let entities = try context.fetch(request)
+            let uniqueEntities = removeDuplicatesIfNeeded(from: entities)
+            return uniqueEntities.map { $0.toModel() }
         } catch {
             print("Fetch error:", error)
             return []
@@ -39,7 +41,8 @@ final class StorageService: StorageServiceProtocol {
     // MARK: - Add
     
     func addTask(_ task: TaskModel) {
-        let entity = TaskEntity(context: context)
+        // Upsert по id: предотвращает накопление дублей.
+        let entity = findEntity(by: task.id) ?? TaskEntity(context: context)
         entity.apply(task)
         save()
     }
@@ -68,6 +71,22 @@ final class StorageService: StorageServiceProtocol {
         request.predicate = NSPredicate(format: "id == %d", id)
         
         return try? context.fetch(request).first
+    }
+
+    private func removeDuplicatesIfNeeded(from entities: [TaskEntity]) -> [TaskEntity] {
+        var seenIds = Set<Int64>()
+        var uniqueEntities: [TaskEntity] = []
+
+        for entity in entities {
+            if seenIds.insert(entity.id).inserted {
+                uniqueEntities.append(entity)
+            } else {
+                context.delete(entity)
+            }
+        }
+
+        save()
+        return uniqueEntities
     }
     
     private func save() {
