@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Собираем зависимости один раз здесь
         let stack = CoreDataStack.shared
-        let storage = StorageService(context: stack.context)
+        let storage = StorageService(context: stack.backgroundContext)
         let network = NetworkService()
 
         let rootVC = TaskListBuilder.build(storage: storage, network: network)

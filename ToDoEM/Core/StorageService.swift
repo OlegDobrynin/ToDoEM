@@ -23,44 +23,54 @@ final class StorageService: StorageServiceProtocol {
     // MARK: - Fetch
     
     func fetchTasks() -> [TaskModel] {
-        let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
-        request.sortDescriptors = [
-            NSSortDescriptor(key: "createdAt", ascending: false)
-        ]
-        
-        do {
-            let entities = try context.fetch(request)
-            let uniqueEntities = removeDuplicatesIfNeeded(from: entities)
-            return uniqueEntities.map { $0.toModel() }
-        } catch {
-            print("Fetch error:", error)
-            return []
+        var result: [TaskModel] = []
+        context.performAndWait {
+            let request: NSFetchRequest<TaskEntity> = TaskEntity.fetchRequest()
+            request.sortDescriptors = [
+                NSSortDescriptor(key: "createdAt", ascending: false)
+            ]
+
+            do {
+                let entities = try context.fetch(request)
+                let uniqueEntities = removeDuplicatesIfNeeded(from: entities)
+                result = uniqueEntities.map { $0.toModel() }
+            } catch {
+                print("Fetch error:", error)
+                result = []
+            }
         }
+        return result
     }
     
     // MARK: - Add
     
     func addTask(_ task: TaskModel) {
-        // Upsert по id: предотвращает накопление дублей.
-        let entity = findEntity(by: task.id) ?? TaskEntity(context: context)
-        entity.apply(task)
-        save()
+        context.performAndWait {
+            // Upsert по id: предотвращает накопление дублей.
+            let entity = findEntity(by: task.id) ?? TaskEntity(context: context)
+            entity.apply(task)
+            save()
+        }
     }
     
     // MARK: - Update
     
     func updateTask(_ task: TaskModel) {
-        guard let entity = findEntity(by: task.id) else { return }
-        entity.apply(task)
-        save()
+        context.performAndWait {
+            guard let entity = findEntity(by: task.id) else { return }
+            entity.apply(task)
+            save()
+        }
     }
     
     // MARK: - Delete
     
     func deleteTask(id: Int) {
-        guard let entity = findEntity(by: id) else { return }
-        context.delete(entity)
-        save()
+        context.performAndWait {
+            guard let entity = findEntity(by: id) else { return }
+            context.delete(entity)
+            save()
+        }
     }
     
     // MARK: - Private

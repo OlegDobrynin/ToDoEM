@@ -8,6 +8,7 @@ final class TaskListViewController: UIViewController {
 
     private var allTasks: [TaskModel] = []
     private var tasks: [TaskModel] = []
+    private var searchRequestId: Int = 0
 
     // MARK: - UI
 
@@ -155,17 +156,30 @@ extension TaskListViewController: UISearchBarDelegate {
 
 private extension TaskListViewController {
     func applyFilter(_ query: String?) {
-        if let query, !query.isEmpty {
-            let q = query.lowercased()
-            tasks = allTasks.filter {
-                $0.title.lowercased().contains(q) ||
-                $0.description.lowercased().contains(q)
+        searchRequestId += 1
+        let requestId = searchRequestId
+        let source = allTasks
+        let normalizedQuery = query?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self else { return }
+            let filtered: [TaskModel]
+            if let normalizedQuery, !normalizedQuery.isEmpty {
+                filtered = source.filter {
+                    $0.title.lowercased().contains(normalizedQuery) ||
+                    $0.description.lowercased().contains(normalizedQuery)
+                }
+            } else {
+                filtered = source
             }
-        } else {
-            tasks = allTasks
+
+            DispatchQueue.main.async { [weak self] in
+                guard let self, requestId == self.searchRequestId else { return }
+                self.tasks = filtered
+                self.tableView.reloadData()
+                self.updateCount()
+            }
         }
-        tableView.reloadData()
-        updateCount()
     }
 }
 

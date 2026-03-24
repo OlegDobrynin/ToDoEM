@@ -22,6 +22,7 @@ final class TaskListInteractor: TaskListInteractorInput {
 
     private let storage: StorageServiceProtocol
     private let network: NetworkServiceProtocol
+    private let workerQueue = DispatchQueue(label: "worker", qos: .userInitiated)
 
     init(storage: StorageServiceProtocol, network: NetworkServiceProtocol) {
         self.storage = storage
@@ -31,16 +32,26 @@ final class TaskListInteractor: TaskListInteractorInput {
     // MARK: - TaskListInteractorInput
 
     func fetchTasks() {
-        let stored = storage.fetchTasks()
-        if stored.isEmpty {
-            // Первый запуск — грузим из API, сохраняем в CoreData
-            network.fetchTodos { [weak self] apiTasks in
-                guard let self else { return }
-                apiTasks.forEach { self.storage.addTask($0) }
-                self.output?.didFetchTasks(self.storage.fetchTasks())
+        workerQueue.async { [weak self] in
+            guard let self else { return }
+            let stored = self.storage.fetchTasks()
+            if stored.isEmpty {
+                // Первый запуск — грузим из API, сохраняем в CoreData
+                self.network.fetchTodos { [weak self] apiTasks in
+                    guard let self else { return }
+                    self.workerQueue.async {
+                        apiTasks.forEach { self.storage.addTask($0) }
+                        let updated = self.storage.fetchTasks()
+                        DispatchQueue.main.async {
+                            self.output?.didFetchTasks(updated)
+                        }
+                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.output?.didFetchTasks(stored)
+                }
             }
-        } else {
-            output?.didFetchTasks(stored)
         }
     }
 
@@ -53,25 +64,50 @@ final class TaskListInteractor: TaskListInteractorInput {
             createdAt: Date(),
             isCompleted: false
         )
-        storage.addTask(task)
+        workerQueue.async { [weak self] in
+            guard let self else { return }
+            self.storage.addTask(task)
+            let updated = self.storage.fetchTasks()
+            DispatchQueue.main.async {
+                self.output?.didFetchTasks(updated)
+            }
+        }
         return task
     }
 
     func deleteTask(id: Int) {
-        storage.deleteTask(id: id)
-        output?.didFetchTasks(storage.fetchTasks())
+        workerQueue.async { [weak self] in
+            guard let self else { return }
+            self.storage.deleteTask(id: id)
+            let updated = self.storage.fetchTasks()
+            DispatchQueue.main.async {
+                self.output?.didFetchTasks(updated)
+            }
+        }
     }
 
     func toggleTask(id: Int) {
-        var tasks = storage.fetchTasks()
-        guard let index = tasks.firstIndex(where: { $0.id == id }) else { return }
-        tasks[index].isCompleted.toggle()
-        storage.updateTask(tasks[index])
-        output?.didFetchTasks(storage.fetchTasks())
+        workerQueue.async { [weak self] in
+            guard let self else { return }
+            var tasks = self.storage.fetchTasks()
+            guard let index = tasks.firstIndex(where: { $0.id == id }) else { return }
+            tasks[index].isCompleted.toggle()
+            self.storage.updateTask(tasks[index])
+            let updated = self.storage.fetchTasks()
+            DispatchQueue.main.async {
+                self.output?.didFetchTasks(updated)
+            }
+        }
     }
 
     func updateTask(_ task: TaskModel) {
-        storage.updateTask(task)
-        output?.didFetchTasks(storage.fetchTasks())
+        workerQueue.async { [weak self] in
+            guard let self else { return }
+            self.storage.updateTask(task)
+            let updated = self.storage.fetchTasks()
+            DispatchQueue.main.async {
+                self.output?.didFetchTasks(updated)
+            }
+        }
     }
 }
