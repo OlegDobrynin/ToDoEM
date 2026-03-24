@@ -106,10 +106,8 @@ class TaskCell: UITableViewCell {
         checkboxButton.setImage(UIImage(systemName: imageName), for: .normal)
         checkboxButton.tintColor = isCompleted ? .emYellow : .emStroke
         
-        if isCompleted {
-            titleLabel.alpha = 0.5
-            descriptionLabel.alpha = 0.5
-        }
+        titleLabel.alpha = isCompleted ? 0.5 : 1.0
+        descriptionLabel.alpha = isCompleted ? 0.5 : 1.0
         
     }
     
