@@ -3,10 +3,21 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 73;
+	objectVersion = 70;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		1C3DC8802F72F98B0064153B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1CD8C53A2F6C0862001C2687 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1CD8C5412F6C0862001C2687;
+			remoteInfo = ToDoEM;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		1C3DC87C2F72F98B0064153B /* ToDoEMTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoEMTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD8C5422F6C0862001C2687 /* ToDoEM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoEM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -15,27 +26,24 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
-				TasksEntity.xcdatamodeld,
 			);
 			target = 1CD8C5412F6C0862001C2687 /* ToDoEM */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		1C8603D52F7173CA002E055D /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 1CD8C53E2F6C0862001C2687 /* Sources */;
-			membershipExceptions = (
-				TasksEntity.xcdatamodeld,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		1C8603BF2F7173CA002E055D /* ToDoEM */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1C8603D42F7173CA002E055D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 1C8603D52F7173CA002E055D /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ToDoEM; sourceTree = "<group>"; };
+		1C3DC87D2F72F98B0064153B /* ToDoEMTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ToDoEMTests; sourceTree = "<group>"; };
+		1C8603BF2F7173CA002E055D /* ToDoEM */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1C8603D42F7173CA002E055D /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ToDoEM; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1C3DC8792F72F98B0064153B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1CD8C53F2F6C0862001C2687 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -50,6 +58,7 @@
 			isa = PBXGroup;
 			children = (
 				1C8603BF2F7173CA002E055D /* ToDoEM */,
+				1C3DC87D2F72F98B0064153B /* ToDoEMTests */,
 				1CD8C5432F6C0862001C2687 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				1CD8C5422F6C0862001C2687 /* ToDoEM.app */,
+				1C3DC87C2F72F98B0064153B /* ToDoEMTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -65,6 +75,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1C3DC87B2F72F98B0064153B /* ToDoEMTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C3DC8842F72F98B0064153B /* Build configuration list for PBXNativeTarget "ToDoEMTests" */;
+			buildPhases = (
+				1C3DC8782F72F98B0064153B /* Sources */,
+				1C3DC8792F72F98B0064153B /* Frameworks */,
+				1C3DC87A2F72F98B0064153B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1C3DC8812F72F98B0064153B /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				1C3DC87D2F72F98B0064153B /* ToDoEMTests */,
+			);
+			name = ToDoEMTests;
+			packageProductDependencies = (
+			);
+			productName = ToDoEMTests;
+			productReference = 1C3DC87C2F72F98B0064153B /* ToDoEMTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		1CD8C5412F6C0862001C2687 /* ToDoEM */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1CD8C5552F6C0864001C2687 /* Build configuration list for PBXNativeTarget "ToDoEM" */;
@@ -97,12 +130,17 @@
 				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
+					1C3DC87B2F72F98B0064153B = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = 1CD8C5412F6C0862001C2687;
+					};
 					1CD8C5412F6C0862001C2687 = {
 						CreatedOnToolsVersion = 26.2;
 					};
 				};
 			};
 			buildConfigurationList = 1CD8C53D2F6C0862001C2687 /* Build configuration list for PBXProject "ToDoEM" */;
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -111,17 +149,24 @@
 			);
 			mainGroup = 1CD8C5392F6C0862001C2687;
 			minimizedProjectReferenceProxies = 1;
-			preferredProjectObjectVersion = 60;
 			productRefGroup = 1CD8C5432F6C0862001C2687 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				1CD8C5412F6C0862001C2687 /* ToDoEM */,
+				1C3DC87B2F72F98B0064153B /* ToDoEMTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1C3DC87A2F72F98B0064153B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1CD8C5402F6C0862001C2687 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -132,6 +177,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1C3DC8782F72F98B0064153B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1CD8C53E2F6C0862001C2687 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -141,7 +193,57 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		1C3DC8812F72F98B0064153B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1CD8C5412F6C0862001C2687 /* ToDoEM */;
+			targetProxy = 1C3DC8802F72F98B0064153B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		1C3DC8822F72F98B0064153B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6ZA4CXS48Y;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.olegdobrynin.ToDoEMTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ToDoEM.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ToDoEM";
+			};
+			name = Debug;
+		};
+		1C3DC8832F72F98B0064153B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6ZA4CXS48Y;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.olegdobrynin.ToDoEMTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ToDoEM.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ToDoEM";
+			};
+			name = Release;
+		};
 		1CD8C5562F6C0864001C2687 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -330,6 +432,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1C3DC8842F72F98B0064153B /* Build configuration list for PBXNativeTarget "ToDoEMTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C3DC8822F72F98B0064153B /* Debug */,
+				1C3DC8832F72F98B0064153B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1CD8C53D2F6C0862001C2687 /* Build configuration list for PBXProject "ToDoEM" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
