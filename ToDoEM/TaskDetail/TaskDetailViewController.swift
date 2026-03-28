@@ -32,9 +32,15 @@ final class TaskDetailViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .emBlack
 
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+
         titleTextField.placeholder = "Заголовок"
         titleTextField.font = .systemFont(ofSize: 34, weight: .bold)
         titleTextField.textColor = .emWhite
+        titleTextField.returnKeyType = .next
+        titleTextField.delegate = self
 
         dateLabel.font = .systemFont(ofSize: 12)
         dateLabel.textColor = .emWhite
@@ -78,6 +84,25 @@ final class TaskDetailViewController: UIViewController {
     }
 }
 
+
+// MARK: - Actions
+
+extension TaskDetailViewController {
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+// MARK: - UITextFieldDelegate
+
+extension TaskDetailViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        contentTextView.becomeFirstResponder()
+        return false
+    }
+}
+
+// MARK: - TaskDetailViewProtocol
 
 extension TaskDetailViewController: TaskDetailViewProtocol {
     func showTask(_ task: TaskModel) {
